@@ -1,4 +1,13 @@
-# CasaFi Network
+<p align="center">
+  <img src="docs/logo.svg" width="128" alt="CasaFi">
+</p>
+
+<h1 align="center">CasaFi Network</h1>
+
+<p align="center"><b>La red de casa al estilo UniFi, para cualquier router OpenWrt</b><br>
+<sub>Docker · español e inglés · claro y oscuro</sub></p>
+
+---
 
 La red de casa al estilo UniFi para cualquier router con **OpenWrt**: mapa de
 equipos con el tráfico en directo, clientes, radios, puertos, redes y VLAN,
