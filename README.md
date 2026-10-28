@@ -8,6 +8,14 @@ que corre en Docker en cualquier equipo de casa (una Raspberry Pi vale).
 > Estado: **en pruebas** (versión 0.4). Si algo falla, descarga el diagnóstico
 > (ver abajo) y mándalo.
 
+![La topología, con el tráfico en directo](docs/capturas/topologia.png)
+
+| | |
+|---|---|
+| ![Panel](docs/capturas/panel.png) **Panel**: clientes, tráfico de la línea, salud de Internet y el router | ![Clientes](docs/capturas/clientes.png) **Clientes**: cada equipo con su señal, enlace y actividad |
+| ![Página de un equipo](docs/capturas/equipo.png) **Cada equipo**: aplicaciones que usa, consumo e historial | ![Flujos](docs/capturas/flujos.png) **Flujos**: a qué países va el tráfico y las conexiones en directo |
+| ![Ajustes](docs/capturas/ajustes.png) **Ajustes**: wifi, redes y VLAN, cortafuegos, reenvíos, VPN… | |
+
 ## Qué hace falta
 
 - Un **router con OpenWrt** y su interfaz web (LuCI), con su contraseña de
