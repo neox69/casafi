@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CasaFi Network</title>
+<link rel="icon" href="/red/favicon.svg">
+<style>
+  :root { --fondo: #fff; --texto: #111; --suave: #6b6b6b; --linea: #e6e6e6; }
+  @media (prefers-color-scheme: dark) { :root { --fondo: #0b0b0b; --texto: #f2f2f2; --suave: #8a8a8a; --linea: #222; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 14px/1.5 -apple-system, "Segoe UI", Inter, sans-serif; }
+  header { display: flex; align-items: center; gap: 10px; padding: 14px 20px; border-bottom: 1px solid var(--linea); font-weight: 600; }
+  header span { width: 10px; height: 10px; border-radius: 50%; background: var(--texto); }
+  main { max-width: 640px; margin: 64px auto; padding: 0 16px; }
+  h1 { font-size: 22px; font-weight: 600; margin: 0 0 6px; }
+  p { color: var(--suave); margin: 0 0 24px; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 8px 24px; margin: 0; padding: 16px 0; border-top: 1px solid var(--linea); }
+  dt { color: var(--suave); }
+  dd { margin: 0; }
+</style>
+</head>
+<body>
+<header><span></span>CasaFi Network <a href="/" style="margin-left:auto;color:inherit;font-weight:400">Abrir la Red →</a></header>
+<main>
+  <h1>Estado</h1>
+  <p>La red de casa, en su propia app. El backend ya lee el router; hasta el día del corte, el panel de siempre sigue al mando.</p>
+  <dl id="salud"><dt>Estado</dt><dd>…</dd></dl>
+</main>
+<script>
+fetch("/api/salud").then(r => r.json()).then(s => {
+  const hace = t => t ? Math.round(Date.now() / 1000 - t) + " s" : "aún no";
+  const filas = [["Versión", s.version], ["Fase", s.fase], ["Router", s.router], ["Equipos vistos", s.equipos ?? "—"],
+    ["Última lectura de la red", "hace " + hace(s.red)], ["Tráfico en directo", "hace " + hace(s.trafico)],
+    ["Cambios en el router", s.escritura ? "activados" : "no (solo lectura)"]].concat(s.error ? [["Error", s.error]] : []);
+  document.getElementById("salud").innerHTML = filas.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+}).catch(() => { document.getElementById("salud").innerHTML = "<dt>Estado</dt><dd>sin respuesta</dd>"; });
+</script>
+</body>
+</html>

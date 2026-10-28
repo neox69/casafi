@@ -1,0 +1,395 @@
+/* =============================================================================
+   Tema «UniFi» (fase 2): minimalista, en blanco y negro, un solo azul para lo
+   que se pulsa o está activo; verde, ámbar y rojo solo en puntos y etiquetas.
+   Superficies lisas, borde de 1 px, sin sombras ni degradados, esquinas de
+   6-8 px, Inter con cifras tabulares. Claro y oscuro, como UniFi.
+   Va encima de red.css: reescribe sus variables y apaga lo decorativo.
+   ========================================================================== */
+:root[data-tema="unifi"] {
+  --nx-ground: #111214;
+  --nx-panel: #1a1b1e;
+  --nx-panel-2: #222327;
+  --nx-rail: #111214;
+  --nx-border: #2c2e33;
+  --nx-border-soft: #232529;
+  --nx-text: #eceef0;
+  --nx-muted: #9da2a9;
+  --nx-faint: #6b7078;
+  --nx-accent: #4797ff;
+  --nx-acc-rgb: 71, 151, 255;
+  --nx-accent-2: #c5c9ce;
+  --nx-violet: #b7bcc3;
+  --nx-vio-rgb: 183, 188, 195;
+  --nx-ok: #38c172;
+  --nx-warn: #f0a33a;
+  --nx-bad: #ec5b5b;
+  --nx-radius: 8px;
+  --nx-rail-w: 0px;              /* la barra lateral es la del armazón, no la del panel */
+  --nx-cristal: var(--nx-panel);
+  --nx-linea: var(--nx-border-soft);
+  --nx-borde-luz: var(--nx-border);
+  --nx-fondo-ficha: var(--nx-panel);
+  --nx-fuente: "Inter";
+  --cl-lado: #0c0d0e;
+  --cl-hover: rgba(255, 255, 255, .06);
+  --cl-activo: rgba(71, 151, 255, .14);
+  --cl-tinta: 255, 255, 255;          /* los realces «blanco semitransparente» del panel */
+  --cl-panel-rgb: 26, 27, 30;         /* las capas flotantes semitransparentes */
+  color-scheme: dark;
+}
+:root[data-tema="unifi"][data-modo="claro"] {
+  --nx-ground: #f6f7f8;
+  --nx-panel: #ffffff;
+  --nx-panel-2: #f2f3f5;
+  --nx-rail: #ffffff;
+  --nx-border: #dfe2e6;
+  --nx-border-soft: #eceef1;
+  --nx-text: #1b1d21;
+  --nx-muted: #5c626b;
+  --nx-faint: #8d939b;
+  --nx-accent: #006fff;
+  --nx-acc-rgb: 0, 111, 255;
+  --nx-accent-2: #3d4249;
+  --nx-violet: #5c626b;
+  --nx-vio-rgb: 92, 98, 107;
+  --nx-ok: #1f9d55;
+  --nx-warn: #c97d10;
+  --nx-bad: #d63c3c;
+  --cl-lado: #ffffff;
+  --cl-hover: rgba(0, 0, 0, .05);
+  --cl-activo: rgba(0, 111, 255, .1);
+  --cl-tinta: 0, 0, 0;
+  --cl-panel-rgb: 255, 255, 255;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: light) {
+  :root[data-tema="unifi"]:not([data-modo]) {
+    --nx-ground: #f6f7f8; --nx-panel: #ffffff; --nx-panel-2: #f2f3f5; --nx-rail: #ffffff;
+    --nx-border: #dfe2e6; --nx-border-soft: #eceef1; --nx-text: #1b1d21; --nx-muted: #5c626b; --nx-faint: #8d939b;
+    --nx-accent: #006fff; --nx-acc-rgb: 0, 111, 255; --nx-accent-2: #3d4249; --nx-violet: #5c626b; --nx-vio-rgb: 92, 98, 107;
+    --nx-ok: #1f9d55; --nx-warn: #c97d10; --nx-bad: #d63c3c;
+    --cl-lado: #ffffff; --cl-hover: rgba(0, 0, 0, .05); --cl-activo: rgba(0, 111, 255, .1);
+    --cl-tinta: 0, 0, 0; --cl-panel-rgb: 255, 255, 255;
+    color-scheme: light;
+  }
+}
+
+/* ---------- lienzo: liso ---------- */
+html[data-tema="unifi"], html[data-tema="unifi"] body { background: var(--nx-ground) !important; }
+html[data-tema="unifi"] body::before, html[data-tema="unifi"] body::after { display: none !important; }
+html[data-tema="unifi"] body { font-feature-settings: "tnum" 1, "cv11" 1; font-size: 14px; }
+html[data-tema="unifi"] ::selection { background: rgba(var(--nx-acc-rgb), .25); }
+
+/* ---------- fichas: superficie lisa, borde de 1 px, sin sombra ---------- */
+html[data-tema="unifi"] .nx-b,
+html[data-tema="unifi"] .nx-rd-flota,
+html[data-tema="unifi"] #nx-rd-ficha,
+html[data-tema="unifi"] .nx-ax-menu,
+html[data-tema="unifi"] .nx-ax-caja,
+html[data-tema="unifi"] .nx-eq-cab {
+  background: var(--nx-panel) !important;
+  border: 1px solid var(--nx-border) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+html[data-tema="unifi"] .nx-b::before, html[data-tema="unifi"] .nx-b::after { display: none !important; }
+html[data-tema="unifi"] .nx-b > h3 { color: var(--nx-muted); font-weight: 600; letter-spacing: .04em; }
+
+/* ---------- botones y campos ---------- */
+html[data-tema="unifi"] .nx-btn, html[data-tema="unifi"] .nx-ps5-sel, html[data-tema="unifi"] input, html[data-tema="unifi"] select {
+  border-radius: 6px !important; box-shadow: none !important;
+}
+html[data-tema="unifi"] .nx-btn:hover { background: var(--cl-hover) !important; border-color: var(--nx-border) !important; }
+
+/* ---------- cabecera de la vista ---------- */
+html[data-tema="unifi"] #nx-vista .nx-cfg-cab { padding-top: 20px; }
+html[data-tema="unifi"] #nx-vista .nx-cfg-cab h1 { font-size: 22px; font-weight: 600; letter-spacing: -.01em; }
+html[data-tema="unifi"] .nx-tit-ico { border-radius: 8px !important; background: var(--nx-panel-2) !important; box-shadow: none !important; }
+
+/* ---------- avisos y diálogos ---------- */
+html[data-tema="unifi"] #nx-ps5-aviso { background: var(--nx-panel-2); border-radius: 8px; box-shadow: none; }
+html[data-tema="unifi"] #nx-ps5-dlg { border-radius: 10px; box-shadow: 0 20px 60px -20px rgba(0, 0, 0, .5); }
+
+/* ---------- el hueco de la barra lateral antigua ---------- */
+html[data-tema="unifi"] .nx-shell { padding-left: 0 !important; }
+
+/* ---------- modo claro: los iconos que el panel invertía a blanco ---------- */
+:root[data-tema="unifi"][data-modo="claro"] #nx-rd-svg image { filter: brightness(.35); opacity: .85; }
+:root[data-tema="unifi"][data-modo="claro"] .nx-ax-apps-mini img { filter: none; }
+@media (prefers-color-scheme: light) {
+  :root[data-tema="unifi"]:not([data-modo]) #nx-rd-svg image { filter: brightness(.35); opacity: .85; }
+  :root[data-tema="unifi"]:not([data-modo]) .nx-ax-apps-mini img { filter: none; }
+}
+
+/* ---------- las páginas del menú (adaptador.js, CL_PAGS) ---------- */
+#nx-vista .cl-pg { display: none; flex-direction: column; gap: 14px; margin-top: 4px; }
+#nx-vista[data-pg="panel"] .cl-pg[data-pg="panel"], #nx-vista[data-pg="topologia"] .cl-pg[data-pg="topologia"],
+#nx-vista[data-pg="dispositivos"] .cl-pg[data-pg="dispositivos"], #nx-vista[data-pg="clientes"] .cl-pg[data-pg="clientes"],
+#nx-vista[data-pg="puertos"] .cl-pg[data-pg="puertos"], #nx-vista[data-pg="radios"] .cl-pg[data-pg="radios"],
+#nx-vista[data-pg="flujos"] .cl-pg[data-pg="flujos"], #nx-vista[data-pg="registro"] .cl-pg[data-pg="registro"] { display: flex; }
+/* el buscador de arriba solo sirve en Clientes y Topología */
+#nx-vista[data-pg]:not([data-pg="clientes"]):not([data-pg="topologia"]) > .nx-cfg-cab .nx-cfg-herr { display: none; }
+.cl-pg .cl-fila { margin: 0; }
+.cl-pg > #nx-rs, .cl-pg > #nx-mu, .cl-pg .nx-rd-barra, .cl-pg .nx-rd-lista { margin-top: 0; }
+/* Panel */
+.cl-pg #nx-rd-cifras, .cl-pg #nx-rd-router { position: static; width: auto; padding: 0; border: 0; background: none; box-shadow: none; }
+.cl-b-router { gap: 0; }
+/* Topología: el mapa a toda la altura, sin el atajo a Ajustes (está en la barra) */
+.cl-pg[data-pg="topologia"] .nx-rd-escena { margin-top: 0; }
+.cl-pg[data-pg="topologia"] #nx-rd-mapa { height: calc(100vh - 130px); min-height: 480px; }
+.cl-pg .nx-ax-entrar { display: none !important; }
+/* Dispositivos: el detalle del router sin el margen de la ventana */
+#cl-rt #nx-rt { padding: 0; }
+#cl-rt .nx-cp-caja { margin-top: 14px; }
+
+/* tablas al estilo UniFi */
+.cl-tabla { padding: 0 !important; overflow: hidden; }
+.cl-t-scroll { overflow-x: auto; }
+.cl-t { width: 100%; font-size: 12.5px; }
+.cl-t th { text-align: left; font-weight: 500; font-size: 11.5px; color: var(--nx-muted); padding: 11px 14px; border-bottom: 1px solid var(--nx-border); white-space: nowrap; }
+.cl-t td { padding: 10px 14px; border-bottom: 1px solid var(--nx-border); color: var(--nx-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.cl-t tr:last-child td { border-bottom: 0; }
+.cl-t tbody tr:hover td { background: var(--cl-hover); }
+.cl-t small, .cl-sub { color: var(--nx-faint); font-size: 11px; margin-left: 4px; }
+.cl-t a { color: var(--nx-accent); text-decoration: none; }
+.cl-t a:hover { text-decoration: underline; }
+.cl-nombre { display: inline-flex; align-items: center; gap: 8px; color: var(--nx-text); }
+.cl-nombre .nx-mdi { width: 18px; height: 18px; color: var(--nx-accent); }
+.cl-nombre:hover b { color: var(--nx-accent); }
+.cl-boca { font-weight: 600; }
+.cl-est { display: inline-flex; align-items: center; gap: 6px; }
+.cl-est i { width: 7px; height: 7px; border-radius: 50%; background: var(--nx-faint); }
+.cl-est.ok i { background: var(--nx-ok); }
+.cl-mal { color: var(--nx-bad, #f0524f); }
+.cl-av { color: var(--nx-warn); }
+.cl-tabla .cl-nota { display: block; margin: 0; padding: 10px 14px; border-top: 1px solid var(--nx-border); }
+.cl-nota a { color: var(--nx-accent); text-decoration: none; }
+
+/* Radios: una tarjeta por banda */
+.cl-banda { gap: 12px; animation: none !important; opacity: 1 !important; }   /* se repinta cada 5 s: sin la entrada animada */
+.cl-banda-cifra { display: flex; align-items: baseline; gap: 8px; }
+.cl-banda-cifra b { font-size: 30px; font-weight: 600; letter-spacing: -.02em; color: var(--nx-text); }
+.cl-banda-cifra span { color: var(--nx-muted); font-size: 12.5px; }
+.cl-dl { margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.cl-dl dt { font-size: 11px; color: var(--nx-muted); }
+.cl-dl dd { margin: 2px 0 0; font-size: 13px; font-weight: 500; color: var(--nx-text); }
+.cl-dl dd small { color: var(--nx-faint); font-size: 10.5px; }
+.cl-calidad { display: flex; gap: 2px; height: 6px; border-radius: 3px; overflow: hidden; }
+.cl-calidad i { display: block; height: 100%; }
+.cl-calidad .q4, .cl-calidad-ley .q4::before { background: var(--nx-ok); }
+.cl-calidad .q3, .cl-calidad-ley .q3::before { background: var(--nx-accent); }
+.cl-calidad .q2, .cl-calidad-ley .q2::before { background: var(--nx-warn); }
+.cl-calidad .q1, .cl-calidad-ley .q1::before { background: var(--nx-bad, #f0524f); }
+.cl-calidad .q0 { background: var(--nx-border); }
+.cl-calidad-ley { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: var(--nx-muted); }
+.cl-calidad-ley li { display: flex; align-items: center; gap: 5px; }
+.cl-calidad-ley li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; }
+.cl-calidad-ley b { color: var(--nx-text); font-weight: 600; }
+
+/* Registro, como el System Log */
+.cl-reg-caja { padding: 0 !important; gap: 0; }
+.cl-reg-filtros { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 14px; border-bottom: 1px solid var(--nx-border); }
+.cl-reg-filtros button { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 6px; font-size: 12.5px; color: var(--nx-muted); border: 1px solid var(--nx-border); }
+.cl-reg-filtros button small { font-size: 11px; color: var(--nx-faint); }
+.cl-reg-filtros button:hover { color: var(--nx-text); background: var(--cl-hover); }
+.cl-reg-filtros button.on { color: var(--nx-accent); border-color: var(--nx-accent); background: var(--cl-activo); }
+#cl-reg > .nx-b-nota { padding: 14px; margin: 0; }
+.cl-reg { list-style: none; margin: 0; padding: 0; }
+.cl-reg-dia { padding: 14px 14px 6px; font-size: 11.5px; font-weight: 600; color: var(--nx-muted); text-transform: capitalize; }
+.cl-reg-e { display: grid; grid-template-columns: 46px 18px minmax(0, 1fr); align-items: start; gap: 12px; padding: 9px 14px; border-top: 1px solid var(--nx-border); }
+.cl-reg-e:hover { background: var(--cl-hover); }
+.cl-reg-e time { font-size: 12px; color: var(--nx-faint); font-variant-numeric: tabular-nums; padding-top: 1px; }
+.cl-reg-e .nx-mdi { width: 16px; height: 16px; color: var(--nx-muted); margin-top: 1px; }
+.cl-reg-e span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cl-reg-e b { font-size: 13px; font-weight: 500; color: var(--nx-text); }
+.cl-reg-e small { font-size: 12px; color: var(--nx-muted); overflow-wrap: anywhere; }
+.cl-reg-e.n-mal .nx-mdi, .cl-reg-e.n-mal b { color: var(--nx-bad, #f0524f); }
+.cl-reg-e.n-aviso .nx-mdi { color: var(--nx-warn); }
+.cl-reg-e.n-bien .nx-mdi { color: var(--nx-ok); }
+
+/* Ajustes: los grupos del menú, como los de UniFi */
+.nx-ax-nav .cl-axg { margin: 12px 12px 4px; font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--nx-faint); }
+.nx-ax-nav .cl-axg:first-child { margin-top: 2px; }
+@media (max-width: 900px) {
+  .nx-ax-nav .cl-axg { display: none; }
+  .cl-dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- buscar, alarmas, experiencia wifi y CSV (adaptador.js) ---------- */
+.cl-bus-btn, .cl-campana {
+  position: relative; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 8px; color: var(--nx-muted);
+  transition: background .12s ease, color .12s ease;
+}
+.cl-bus-btn { margin-bottom: 8px; }
+.cl-bus-btn:hover, .cl-campana:hover { background: var(--cl-hover); color: var(--nx-text); }
+.cl-campana u { position: absolute; top: 4px; right: 3px; min-width: 15px; height: 15px; padding: 0 4px; border-radius: 8px; text-decoration: none;
+  font: 600 10px/15px var(--nx-fuente, 'Inter'), sans-serif; text-align: center; color: #fff; background: var(--nx-bad); }
+.cl-campana u[hidden] { display: none; }
+
+#cl-al { position: fixed; left: 64px; bottom: 16px; z-index: 90; width: 340px; max-height: 70vh; overflow: auto; border-radius: 10px;
+  background: var(--nx-panel); border: 1px solid var(--nx-border); box-shadow: 0 20px 50px -18px rgba(0, 0, 0, .55); }
+#cl-al[hidden] { display: none; }
+.cl-al-cab { display: flex; align-items: baseline; justify-content: space-between; padding: 12px 14px; border-bottom: 1px solid var(--nx-border); }
+.cl-al-cab b { font-size: 13.5px; font-weight: 600; }
+.cl-al-cab small { font-size: 11px; color: var(--nx-faint); }
+#cl-al ul { list-style: none; margin: 0; padding: 0; }
+#cl-al li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--nx-border); }
+#cl-al li .nx-mdi { width: 16px; height: 16px; color: var(--nx-warn); margin-top: 1px; }
+#cl-al li.n-mal .nx-mdi { color: var(--nx-bad); }
+#cl-al li span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+#cl-al li b { font-size: 12.5px; font-weight: 500; color: var(--nx-text); }
+#cl-al li small { font-size: 11.5px; color: var(--nx-muted); overflow-wrap: anywhere; }
+.cl-al-nada { margin: 0; padding: 18px 14px; font-size: 12.5px; color: var(--nx-muted); }
+.cl-al-todo { display: block; padding: 10px 14px; font-size: 12.5px; color: var(--nx-accent); text-decoration: none; }
+.cl-al-todo:hover { background: var(--cl-hover); }
+
+#cl-bus { position: fixed; inset: 0; z-index: 95; display: flex; justify-content: center; align-items: flex-start; padding: 12vh 16px 16px; background: rgba(0, 0, 0, .45); }
+#cl-bus[hidden] { display: none; }
+.cl-bus-caja { width: min(620px, 100%); max-height: 70vh; display: flex; flex-direction: column; border-radius: 12px; overflow: hidden;
+  background: var(--nx-panel); border: 1px solid var(--nx-border); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .6); }
+.cl-bus-cab { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--nx-border); }
+.cl-bus-cab .nx-mdi { width: 18px; height: 18px; color: var(--nx-muted); }
+.cl-bus-cab input { flex: 1; min-width: 0; border: 0 !important; outline: 0; background: none; font-size: 15px; color: var(--nx-text); }
+.cl-bus-cab kbd { font: 500 11px var(--nx-fuente, 'Inter'), sans-serif; color: var(--nx-faint); padding: 2px 6px; border: 1px solid var(--nx-border); border-radius: 4px; }
+#cl-bus-l { list-style: none; margin: 0; padding: 6px; overflow: auto; }
+#cl-bus-l li[data-i] { display: grid; grid-template-columns: 18px minmax(0, 1fr); align-items: center; gap: 12px; padding: 8px 10px; border-radius: 8px; cursor: pointer; }
+#cl-bus-l li[data-i]:hover { background: var(--cl-hover); }
+#cl-bus-l li.on { background: var(--cl-activo); }
+#cl-bus-l li .nx-mdi { width: 17px; height: 17px; color: var(--nx-muted); }
+#cl-bus-l li.on .nx-mdi { color: var(--nx-accent); }
+#cl-bus-l li span { display: flex; flex-direction: column; min-width: 0; }
+#cl-bus-l li b { font-size: 13px; font-weight: 500; color: var(--nx-text); }
+#cl-bus-l li small { font-size: 11.5px; color: var(--nx-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cl-bus-g { padding: 10px 10px 4px; font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--nx-faint); }
+.cl-bus-nada { padding: 18px 10px; font-size: 13px; color: var(--nx-muted); }
+
+.cl-exp { position: relative; width: 116px; height: 116px; margin: 4px auto 6px; }
+.cl-aro { width: 100%; height: 100%; transform: rotate(-90deg); }
+.cl-aro circle { fill: none; stroke-width: 2.6; }
+.cl-aro .f { stroke: var(--nx-border); }
+.cl-aro .v { stroke: var(--nx-accent); stroke-linecap: round; transition: stroke-dasharray .4s ease; }
+.cl-aro.ok .v { stroke: var(--nx-ok); }
+.cl-aro.av .v { stroke: var(--nx-warn); }
+.cl-aro.mal .v { stroke: var(--nx-bad); }
+.cl-exp b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 28px; font-weight: 600; letter-spacing: -.02em; color: var(--nx-text); }
+.cl-exp b small { font-size: 13px; color: var(--nx-muted); margin-left: 1px; }
+.cl-exp b { display: flex; align-items: center; justify-content: center; }
+.cl-dl.cl-dl2 { grid-template-columns: repeat(2, minmax(0, 1fr)); text-align: center; }
+.cl-dl dd.ok, .cl-banda-cifra em.ok { color: var(--nx-ok); }
+.cl-dl dd.av, .cl-banda-cifra em.av { color: var(--nx-warn); }
+.cl-dl dd.mal, .cl-banda-cifra em.mal { color: var(--nx-bad); }
+.cl-banda-cifra em { margin-left: auto; font-style: normal; font-size: 12.5px; font-weight: 600; }
+.cl-exp-flojos { margin: 4px 0 0; font-size: 12px; color: var(--nx-muted); }
+.cl-exp-flojos a { color: var(--nx-accent); text-decoration: none; }
+.cl-exp-flojos small { color: var(--nx-faint); }
+
+.cl-csv { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 6px; border: 1px solid var(--nx-border);
+  font-size: 12.5px; color: var(--nx-muted); flex: none; }
+.cl-csv:hover { color: var(--nx-text); background: var(--cl-hover); }
+.cl-csv .nx-mdi { width: 15px; height: 15px; }
+.cl-reg-cab { display: flex; align-items: center; gap: 10px; padding-right: 14px; border-bottom: 1px solid var(--nx-border); }
+.cl-reg-cab .cl-reg-filtros { flex: 1; border-bottom: 0; }
+@media (max-width: 720px) {
+  .cl-bus-btn { margin: 0; }
+  #cl-al { left: 8px; right: 8px; width: auto; bottom: 64px; }
+}
+
+/* Clientes más activos y VPN en el Panel; clientes VPN en Clientes */
+.cl-act { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.cl-act li { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 6px; font-size: 13px; }
+.cl-act a { display: inline-flex; align-items: center; gap: 8px; min-width: 0; color: var(--nx-text); text-decoration: none; }
+.cl-act a b { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-act a:hover b { color: var(--nx-accent); }
+.cl-act span { color: var(--nx-muted); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.cl-act i { position: absolute; left: 0; bottom: 0; height: 3px; border-radius: 2px; background: var(--nx-accent); opacity: .75; transition: width .6s; }
+.cl-vpn-l { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; font-size: 13px; }
+.cl-vpn-l li { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.cl-vpn-l b { font-weight: 500; color: var(--nx-text); }
+.cl-vpn-l small { color: var(--nx-faint); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-b-vpnt { margin-top: 14px; }
+.cl-mon { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; font-size: 13px; }
+.cl-mon li { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.cl-mon b { font-weight: 500; color: var(--nx-text); }
+.cl-mon small { color: var(--nx-faint); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cl-mon em { margin-left: auto; font-style: normal; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cl-mon em.ok { color: var(--nx-ok); }
+.cl-mon em.av { color: var(--nx-warn, #e8a33d); }
+.cl-mon em.mal { color: var(--nx-bad, #e5484d); }
+
+/* Ajustes → Aplicación: el idioma */
+.nx-ax-nav .cl-idioma { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; color: var(--nx-text); }
+.nx-ax-nav .cl-idioma > span:not(.nx-ico) { flex: 1; min-width: 0; display: grid; }
+.nx-ax-nav .cl-idioma b { font-weight: 500; font-size: 13px; }
+.nx-ax-nav .cl-idioma small { color: var(--nx-faint); font-size: 11.5px; }
+.nx-ax-nav .cl-idioma select { background: var(--nx-bg-2, transparent); color: var(--nx-text); border: 1px solid var(--nx-line, rgba(127,127,127,.3)); border-radius: 6px; padding: 4px 6px; font: inherit; font-size: 12.5px; }
+
+/* partículas del mapa al estilo UniFi: puntos pequeños, sin halo (son muchos) */
+#nx-rd-svg .nx-rd-flujo circle { r: 1.5px; filter: none; opacity: .9; }
+#nx-rd-svg .nx-rd-flujo.n3 circle { r: 1.7px; }
+#nx-rd-svg .nx-rd-flujo.n4 circle { r: 1.9px; }
+#nx-rd-svg .nx-rd-flujo.n5 circle { r: 2.1px; opacity: 1; }
+/* (las bolas del SVG no se ven: las partículas van en un lienzo encima, ver clCvTic) */
+#nx-rd-svg .nx-rd-flujo circle { display: none !important; }
+#nx-rd-mapa > canvas.cl-part { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+#nx-rd-svg .nx-rd-traf { opacity: .35; }
+
+/* ---------- CasaFi: bienvenida, entrar y Ajustes → Aplicación (casafi.js) ---------- */
+#cf-capa { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 20px; background: rgba(5, 8, 12, .62); backdrop-filter: blur(6px); overflow: auto; }
+#cf-capa.cf-bienvenida { background: radial-gradient(120% 90% at 0% 0%, rgba(74,168,255,.18), transparent 60%), radial-gradient(100% 90% at 100% 100%, rgba(164,124,255,.16), transparent 60%), var(--nx-bg, #0d1117); }
+.cf-caja { width: min(560px, 100%); max-height: calc(100vh - 40px); overflow: auto; padding: 26px 28px; border-radius: 16px; background: var(--cl-panel, #151a21); border: 1px solid var(--nx-border); box-shadow: 0 24px 60px rgba(0,0,0,.4); color: var(--nx-text); }
+.cf-ajustes .cf-caja { width: min(720px, 100%); }
+.cf-caja h2 { margin: 0 0 6px; font-size: 21px; font-weight: 600; letter-spacing: -.02em; }
+.cf-caja h3 { margin: 0 0 8px; font-size: 14px; font-weight: 600; }
+.cf-caja h3 small, .cf-caja h2 small { font-weight: 400; color: var(--nx-muted); margin-left: 6px; font-size: 12px; }
+.cf-caja section { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--nx-border); }
+.cf-cab { display: flex; align-items: center; justify-content: space-between; }
+.cf-x { font-size: 24px; line-height: 1; color: var(--nx-muted); padding: 2px 8px; border-radius: 8px; }
+.cf-x:hover { background: var(--cl-hover); color: var(--nx-text); }
+.cf-nota { margin: 0 0 12px; font-size: 13px; line-height: 1.5; color: var(--nx-muted); }
+.cf-nota a { color: var(--nx-accent); }
+.cf-nota code, .cf-caja code { font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 1px 5px; border-radius: 5px; background: rgba(127,127,127,.15); }
+.cf-logo { width: 46px; height: 46px; margin-bottom: 14px; background: var(--nx-accent); -webkit-mask: url(/red/icono.svg) center/contain no-repeat; mask: url(/red/icono.svg) center/contain no-repeat; }
+.cf-ok { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 12px; border-radius: 50%; background: rgba(54,211,153,.15); color: var(--nx-ok); font-size: 24px; font-weight: 700; }
+.cf-paso { display: flex; gap: 14px; margin-top: 18px; }
+.cf-paso > b { flex: none; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgba(74,168,255,.16); color: var(--nx-accent); font-size: 13px; }
+.cf-paso > div { flex: 1; min-width: 0; }
+.cf-campo { display: grid; gap: 5px; margin-bottom: 11px; }
+.cf-campo span { font-size: 12px; font-weight: 500; color: var(--nx-muted); }
+.cf-campo input { height: 38px; padding: 0 12px; border-radius: 9px; border: 1px solid var(--nx-border); background: rgba(127,127,127,.08); color: var(--nx-text); font: inherit; font-size: 14px; }
+.cf-campo input:focus { outline: none; border-color: var(--nx-accent); box-shadow: 0 0 0 3px rgba(74,168,255,.18); }
+.cf-campo small { font-size: 11.5px; color: var(--nx-faint); }
+.cf-error { margin: 4px 0 0; font-size: 13px; color: var(--nx-bad, #e5484d); }
+.cf-botones { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+.cf-btn { display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border-radius: 9px; border: 1px solid var(--nx-border); font-size: 13px; font-weight: 500; color: var(--nx-text); text-decoration: none; white-space: nowrap; }
+.cf-btn:hover { background: var(--cl-hover); }
+.cf-btn.pri { background: var(--nx-accent); border-color: transparent; color: #fff; }
+.cf-btn.pri:hover { filter: brightness(1.1); }
+.cf-btn:disabled { opacity: .6; cursor: default; }
+.cf-pasos { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; font-size: 13px; }
+.cf-pasos .si { color: var(--nx-ok); }
+.cf-pasos .no { color: var(--nx-bad, #e5484d); }
+.cf-fila { display: flex; align-items: center; gap: 12px; }
+.cf-fila > div { flex: 1; min-width: 0; display: grid; }
+.cf-fila b, .cf-integ-cab b { font-size: 14px; font-weight: 500; }
+.cf-fila small, .cf-integ-cab small { font-size: 12px; color: var(--nx-muted); }
+.cf-i { flex: none; width: 22px; height: 22px; background: var(--nx-muted); -webkit-mask: var(--i) center/contain no-repeat; mask: var(--i) center/contain no-repeat; }
+.cf-integ { margin-top: 10px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--nx-border); }
+.cf-integ.on { border-color: rgba(54,211,153,.35); }
+.cf-integ.on .cf-i { background: var(--nx-ok); }
+.cf-integ-cab { display: flex; align-items: center; gap: 12px; }
+.cf-integ-cab > div { flex: 1; display: grid; min-width: 0; }
+.cf-estado { font-size: 11.5px; font-weight: 600; color: var(--nx-faint); white-space: nowrap; }
+.cf-integ.on .cf-estado { color: var(--nx-ok); }
+.cf-integ details { margin-top: 8px; }
+.cf-integ summary { cursor: pointer; font-size: 12.5px; color: var(--nx-accent); margin-bottom: 8px; }
+.cf-conecta { display: grid; justify-items: center; gap: 6px; padding: 18px 10px; text-align: center; }
+.cf-conecta .nx-mdi, .cf-conecta .nx-ico { width: 30px; height: 30px; opacity: .55; }
+.cf-conecta b { font-size: 14px; font-weight: 600; }
+.cf-conecta small { max-width: 30ch; font-size: 12px; color: var(--nx-muted); }
+.cf-conecta .nx-btn { margin-top: 6px; }
+.nx-ax-nav .cl-app-a { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; color: var(--nx-muted); text-decoration: none; }
+.nx-ax-nav .cl-app-a:hover { background: var(--cl-hover); color: var(--nx-text); }
+.nx-ax-nav .cl-app-a span { display: grid; }
+.nx-ax-nav .cl-app-a b { font-weight: 500; font-size: 13px; color: var(--nx-text); }
+.nx-ax-nav .cl-app-a small { font-size: 11.5px; color: var(--nx-faint); }

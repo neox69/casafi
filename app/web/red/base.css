@@ -1,0 +1,101 @@
+/* Las fuentes, servidas por la app (las baja una vez de jsDelivr: @fontsource) */
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url(/cdn/@fontsource/inter@5.0.18/files/inter-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap; src: url(/cdn/@fontsource/inter@5.0.18/files/inter-latin-500-normal.woff2) format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 600; font-display: swap; src: url(/cdn/@fontsource/inter@5.0.18/files/inter-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 700; font-display: swap; src: url(/cdn/@fontsource/inter@5.0.18/files/inter-latin-700-normal.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url(/cdn/@fontsource/ibm-plex-mono@5.0.13/files/ibm-plex-mono-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url(/cdn/@fontsource/ibm-plex-mono@5.0.13/files/ibm-plex-mono-latin-500-normal.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 600; font-display: swap; src: url(/cdn/@fontsource/ibm-plex-mono@5.0.13/files/ibm-plex-mono-latin-600-normal.woff2) format("woff2"); }
+
+/* Base de la página: lo que antes ponía Homepage (el «preflight» de Tailwind) y
+   en lo que se apoya red.css, más el armazón propio (barra lateral). */
+*, *::before, *::after { box-sizing: border-box; border: 0 solid; }
+html, body { margin: 0; height: 100%; }
+html { line-height: 1.5; -webkit-text-size-adjust: 100%; tab-size: 4; }
+body { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; margin: 0; }
+p, blockquote, dl, dd, figure, pre, hr { margin: 0; }
+ol, ul, menu { list-style: none; margin: 0; padding: 0; }
+a { color: inherit; text-decoration: inherit; }
+b, strong { font-weight: bolder; }
+small { font-size: 80%; }
+table { text-indent: 0; border-color: inherit; border-collapse: collapse; }
+button, input, optgroup, select, textarea { font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0; }
+button, select { text-transform: none; }
+button, [type="button"], [type="reset"], [type="submit"] { -webkit-appearance: button; background-color: transparent; background-image: none; }
+button, [role="button"] { cursor: pointer; }
+:disabled { cursor: default; }
+input::placeholder, textarea::placeholder { opacity: 1; color: var(--nx-faint, #888); }
+img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+img, video { max-width: 100%; height: auto; }
+[hidden] { display: none; }
+dialog { padding: 0; }
+
+/* ---------- armazón ---------- */
+body { display: flex; overflow: hidden; }
+.cl-lado {
+  position: relative; z-index: 5; flex: 0 0 56px; height: 100vh; display: flex; flex-direction: column; align-items: center;
+  gap: 4px; padding: 12px 0; background: var(--cl-lado); border-right: 1px solid var(--nx-border);
+}
+.cl-marca { display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 10px; }
+.cl-marca b { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.cl-logo { width: 26px; height: 26px; background: var(--nx-text); -webkit-mask: url(/red/icono.svg) center/contain no-repeat; mask: url(/red/icono.svg) center/contain no-repeat; }
+.cl-nav { display: flex; flex-direction: column; gap: 4px; }
+.cl-nav a, .cl-pie a, .cl-pie button {
+  position: relative; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 8px; color: var(--nx-muted);
+  transition: background .12s ease, color .12s ease;
+}
+/* el nombre de la página, como en UniFi: una etiqueta al pasar por encima */
+.cl-lado a b, .cl-lado button b {
+  position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%); z-index: 20; padding: 5px 9px; border-radius: 6px; white-space: nowrap;
+  font-size: 12px; font-weight: 500; color: var(--nx-text); background: var(--cl-lado); border: 1px solid var(--nx-border); box-shadow: 0 4px 14px rgba(0,0,0,.25);
+  opacity: 0; pointer-events: none; transition: opacity .1s ease;
+}
+.cl-lado a:hover b, .cl-lado button:hover b, .cl-lado a:focus-visible b { opacity: 1; }
+.cl-marca b { opacity: 0 !important; }
+.cl-nav a:hover, .cl-pie a:hover, .cl-pie button:hover { background: var(--cl-hover); color: var(--nx-text); }
+.cl-nav a.on, .cl-pie a.on { background: var(--cl-activo); color: var(--nx-accent); }
+.cl-i { width: 20px; height: 20px; background: currentColor; -webkit-mask: var(--i) center/contain no-repeat; mask: var(--i) center/contain no-repeat; }
+.cl-pie { margin-top: auto; display: flex; flex-direction: column; gap: 4px; }
+.cl-main { flex: 1; min-width: 0; height: 100vh; overflow: auto; }
+.cl-cont { position: relative; max-width: 1680px; margin: 0 auto; padding: 0 24px 40px; min-height: 100%; display: flex; flex-direction: column; }
+#layout-groups { display: none; }
+/* dentro de la pestaña Red de Homepage: la barra se queda (es el menú), sin la marca */
+[data-marco] .cl-marca, [data-marco] .cl-pie a[href="/estado"] { display: none; }
+
+@media (max-width: 720px) {
+  body { flex-direction: column-reverse; }
+  .cl-lado { flex: 0 0 56px; width: 100%; height: 56px; flex-direction: row; justify-content: space-around; padding: 0 8px; border-right: 0; border-top: 1px solid var(--nx-border); }
+  .cl-marca { display: none; }
+  .cl-lado { justify-content: flex-start; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+  .cl-nav { flex-direction: row; gap: 2px; }
+  .cl-pie { margin: 0 0 0 auto; flex-direction: row; gap: 2px; }
+  .cl-lado a b, .cl-lado button b { display: none; }
+  .cl-main { height: calc(100vh - 56px); }
+  .cl-cont { padding: 0 12px 24px; }
+}
+
+/* la barra lateral desplegada, con los nombres (botón de abajo; localStorage «cl-lado») */
+.cl-lado { transition: flex-basis .18s ease; }
+.cl-plegar .cl-i-cerrar, [data-lado="ancho"] .cl-plegar .cl-i-abrir { display: none; }
+[data-lado="ancho"] .cl-plegar .cl-i-cerrar { display: block; }
+@media (min-width: 721px) {
+  [data-lado="ancho"] .cl-lado { flex-basis: 212px; align-items: stretch; padding: 12px 10px; overflow: hidden; }
+  [data-lado="ancho"] .cl-marca { width: auto; display: flex; align-items: center; gap: 10px; justify-content: flex-start; padding: 0 7px; }
+  [data-lado="ancho"] .cl-marca b { position: static; width: auto; height: auto; clip: auto; overflow: visible; opacity: 1 !important; font-size: 16px; font-weight: 600; color: var(--nx-text); }
+  [data-lado="ancho"] .cl-nav a, [data-lado="ancho"] .cl-pie a, [data-lado="ancho"] .cl-pie button, [data-lado="ancho"] .cl-bus-btn {
+    width: 100%; display: flex; align-items: center; justify-content: flex-start; gap: 12px; padding: 0 10px;
+  }
+  [data-lado="ancho"] .cl-lado a b, [data-lado="ancho"] .cl-lado button b {
+    position: static; transform: none; opacity: 1; padding: 0; border: 0; background: none; box-shadow: none; pointer-events: auto;
+    font-size: 13px; font-weight: 500; color: inherit; overflow: hidden; text-overflow: ellipsis;
+  }
+}
+
+/* la Topología usa toda la pantalla */
+.cl-cont:has(#nx-vista[data-pg="topologia"]) { max-width: none; padding: 0 8px 8px; }
+#nx-vista[data-pg="topologia"] { margin: 0 12px 0; }
+#nx-vista[data-pg="topologia"] .cl-pg[data-pg="topologia"] #nx-rd-mapa { height: calc(100vh - 142px); }
+#nx-vista[data-pg="topologia"] .nx-rd-escena { margin-left: 0; margin-right: 0; }
+.cl-main:has(#nx-vista[data-pg="topologia"]) { overflow-x: hidden; }
+@media (max-width: 720px) { .cl-plegar { display: none; } }

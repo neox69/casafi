@@ -1,0 +1,75 @@
+<!doctype html>
+<!--
+  CasaFi Network, antes CasaLAB Red (fase 2). Armazón propio: barra lateral a la izquierda y la Red a
+  la derecha. red.js y red.css salen de la capa del panel con tools/extraer_red.py
+  y tools/extraer_css.py; tema-unifi.css va encima. Lo único que red.js busca de
+  la página es #layout-groups (delante de él monta la vista) y #inner_wrapper
+  (lo que se desplaza).
+-->
+<html lang="es" data-tema="unifi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>CasaFi Network</title>
+<link rel="icon" href="/red/favicon.svg">
+<script>
+  // claro / oscuro / el del sistema, recordado en este navegador
+  // ?marco=1: dentro de la pestaña Red de Homepage, sin barra lateral (se recuerda al navegar dentro)
+  var marco = /[?&]marco=1/.test(location.search);
+  // el nombre de la ventana dura mientras se navega dentro del mismo marco
+  if (marco) window.name = "cl-marco"; else marco = window.name === "cl-marco";
+  if (marco) document.documentElement.dataset.marco = "1";        // atributo: red.js reescribe las clases de <html>
+  try { var m = localStorage.getItem("cl-modo") || (marco ? "oscuro" : ""); if (m === "claro" || m === "oscuro") document.documentElement.dataset.modo = m; } catch (e) { /* sin almacenamiento */ }
+  // la barra lateral, plegada (solo iconos) o desplegada (con los nombres)
+  try { if (localStorage.getItem("cl-lado") === "ancho") document.documentElement.dataset.lado = "ancho"; } catch (e) { /* sin almacenamiento */ }
+  if (!location.hash) history.replaceState(null, "", location.pathname + location.search + "#red");
+</script>
+<link rel="stylesheet" href="/red/base.css">
+<link rel="stylesheet" href="/red/red.css">
+<link rel="stylesheet" href="/red/tema-unifi.css">
+</head>
+<body>
+<aside class="cl-lado" aria-label="Navegación">
+  <a class="cl-marca" href="/#red" title="CasaFi Network"><span class="cl-logo" aria-hidden="true"></span><b>CasaFi</b></a>
+  <!-- las páginas, como las de UniFi: las pone adaptador.js (CL_PAGS) -->
+  <nav class="cl-nav" aria-label="Páginas"></nav>
+  <div class="cl-pie">
+    <a href="/?ajustes=wifi#red" data-axir="wifi" data-clv="ajustes" title="Ajustes · Settings" aria-label="Ajustes"><span class="cl-i" style="--i:url(/mdi/cog-outline.svg)"></span><b>Ajustes</b></a>
+    <button type="button" class="cl-modo" title="Claro u oscuro" aria-label="Cambiar entre claro y oscuro"><span class="cl-i" style="--i:url(/mdi/theme-light-dark.svg)"></span><b>Claro u oscuro</b></button>
+    <a href="/estado" title="Estado de la app" aria-label="Estado de la app"><span class="cl-i" style="--i:url(/mdi/information-outline.svg)"></span><b>Estado de la app</b></a>
+    <button type="button" class="cl-plegar" aria-label="Ampliar o plegar el menú"><span class="cl-i cl-i-abrir" style="--i:url(/mdi/chevron-double-right.svg)"></span><span class="cl-i cl-i-cerrar" style="--i:url(/mdi/chevron-double-left.svg)"></span><b>Plegar el menú</b></button>
+  </div>
+</aside>
+<main id="inner_wrapper" class="cl-main">
+  <div class="cl-cont nx-shell"><div id="layout-groups"></div></div>
+</main>
+<script>
+  (function () {
+    document.querySelector(".cl-modo").addEventListener("click", function () {
+      var r = document.documentElement, oscuro = r.dataset.modo ? r.dataset.modo === "oscuro" : matchMedia("(prefers-color-scheme: dark)").matches;
+      r.dataset.modo = oscuro ? "claro" : "oscuro";
+      try { localStorage.setItem("cl-modo", r.dataset.modo); } catch (e) { /* sin almacenamiento */ }
+    });
+    var plegar = document.querySelector(".cl-plegar");
+    function rotulo() {
+      var ancho = document.documentElement.dataset.lado === "ancho";
+      plegar.title = ancho ? "Plegar el menú" : "Ampliar el menú";
+      plegar.querySelector("b").textContent = plegar.title;
+      plegar.setAttribute("aria-expanded", ancho);
+    }
+    rotulo();
+    plegar.addEventListener("click", function () {
+      var r = document.documentElement;
+      if (r.dataset.lado === "ancho") delete r.dataset.lado; else r.dataset.lado = "ancho";
+      try { localStorage.setItem("cl-lado", r.dataset.lado || ""); } catch (e) { /* sin almacenamiento */ }
+      rotulo();
+      window.dispatchEvent(new Event("resize"));          // el mapa vuelve a encajar en el ancho nuevo
+    });
+  })();
+</script>
+<script src="/red/idioma.js"></script>
+<script src="/red/red.js"></script>
+<script src="/red/casafi.js"></script>
+</body>
+</html>

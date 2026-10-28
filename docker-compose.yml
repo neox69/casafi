@@ -1,0 +1,29 @@
+# CasaFi Network: la red de casa al estilo UniFi para un router OpenWrt.
+#
+#   docker compose up -d --build
+#
+# y abre http://<ip-de-este-servidor>:8102: la bienvenida pide la dirección del
+# router y su contraseña. Lo demás (AdGuard Home, Tailscale, Telegram, Home
+# Assistant) se conecta luego desde Ajustes → Aplicación, si lo tienes.
+#
+# Va con la red del anfitrión: necesita ver la red de casa como un equipo más
+# (la tabla de vecinos, el tráfico de este servidor, el descubrimiento mDNS).
+
+services:
+  casafi:
+    build: .
+    image: casafi:local
+    container_name: casafi
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      CASALAB_PORT: "8102"            # el puerto de la app
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./data:/data                  # la configuración, el historial y el registro
+      - /etc/localtime:/etc/localtime:ro   # la hora de casa en el registro
+      # --- opcional: Tailscale de este servidor (Ajustes → Aplicación → Tailscale)
+      # - /usr/bin/tailscale:/usr/local/bin/tailscale:ro
+      # - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock
+      # --- opcional: reconocer más equipos por mDNS (el avahi de este servidor)
+      # - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket
